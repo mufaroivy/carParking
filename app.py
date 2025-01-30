@@ -16,7 +16,7 @@ print(f"Database DSN: {dsn}")
 # Initialize the Flask app
 app = Flask(__name__)
 
-# Load secret key from environment variable
+# Load secret key from environment variables
 app.config["JWT_SECRET_KEY"] = os.getenv("JWT_SECRET_KEY", "default_secret_key")
 
 # Initialize JWT Manager
