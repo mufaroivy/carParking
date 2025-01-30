@@ -5,7 +5,7 @@ import numpy as np
 import os
 
 # Constants
-PARKING_THRESHOLD = 900  # Adjust this threshold based on real-world testing
+PARKING_THRESHOLD = 900  
 PARKING_UPDATE_URL = os.getenv('PARKING_UPDATE_URL', 'http://localhost:5000/update_spaces')
 PARKING_POSITIONS_FILE = 'CarParkPos'
 FRAME_WIDTH, FRAME_HEIGHT = 107, 48
