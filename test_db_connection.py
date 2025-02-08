@@ -1,18 +1,49 @@
 import psycopg2
 import os
+import logging
 from dotenv import load_dotenv
 
-load_dotenv()  # Load environment variables from .env
+# Configure logging
+logging.basicConfig(level=logging.INFO)
+logger = logging.getLogger(__name__)
 
-# Get the DSN from environment variables
-dsn = os.getenv("DATABASE_URL")
+def test_database_connection(dsn: str) -> bool:
+    """
+    Test the connection to the PostgreSQL database.
 
-print(f"Attempting to connect to: {dsn}")
+    Args:
+        dsn (str): The connection string for the PostgreSQL database.
 
-# Test the connection
-try:
-    connection = psycopg2.connect(dsn)
-    print("Successfully connected to the database!")
-    connection.close()
-except Exception as e:
-    print(f"Error connecting to the database: {e}")
+    Returns:
+        bool: True if the connection is successful, False otherwise.
+    """
+    connection = None
+    try:
+        connection = psycopg2.connect(dsn)
+        logger.info("Successfully connected to the database!")
+        return True
+    except Exception as e:
+        logger.error(f"Error connecting to the database: {e}")
+        return False
+    finally:
+        if connection:
+            connection.close()
+            logger.info("Database connection closed.")
+
+if __name__ == '__main__':
+    # Load environment variables from .env
+    load_dotenv()
+
+    # Get the DSN from environment variables
+    dsn = os.getenv("DATABASE_URL")
+    if not dsn:
+        logger.error("Error: 'DATABASE_URL' must be set in the .env file.")
+        exit(1)
+
+    logger.info(f"Attempting to connect to: {dsn}")
+
+    # Test the connection
+    if test_database_connection(dsn):
+        logger.info("Database connection test completed successfully.")
+    else:
+        logger.error("Database connection test failed.")

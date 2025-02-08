@@ -1,0 +1,19 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Reserve Parking</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='styles.css') }}">
+</head>
+<body>
+    <div class="container">
+        <h1>Reserve a Parking Spot</h1>
+        <form id="reserve-form">
+            <input type="text" id="spot-id" placeholder="Spot ID" required>
+            <input type="datetime-local" id="reservation-time" required>
+            <button type="submit">Reserve</button>
+        </form>
+    </div>
+</body>
+</html>
